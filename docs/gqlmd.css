@@ -1,0 +1,469 @@
+/*
+ * GraphQL-Markdown demo styles for Docsify v5 (core theme).
+ * Shared visual system: entity chips, bullets, badge pills, code, callouts
+ * and the landing page. Brand accent: Docsify core blue #0b85d7, zinc neutrals.
+ */
+
+:root {
+  --color-bg: #ffffff;
+  --color-text: #3f3f46;
+  --strong-color: #18181b;
+  --heading-color: #18181b;
+  --link-color: #0b85d7;
+  --gqlmd-link: #0b85d7;
+  --gqlmd-link-hover: #0868a8;
+  --gqlmd-badge-fg: #0868a8;
+  --gqlmd-muted: #71717a;
+  --gqlmd-border: #e4e4e7;
+  --gqlmd-chip-bg: #f4f4f5;
+  --gqlmd-code-bg: #f4f4f5;
+  --gqlmd-chip-border: #e4e4e7;
+  --gqlmd-radius: 0.5rem;
+  --gqlmd-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #18181b;
+    --color-text: #d4d4d8;
+    --strong-color: #fafafa;
+    --heading-color: #fafafa;
+    --link-color: #5ab0f0;
+    --gqlmd-link: #5ab0f0;
+    --gqlmd-link-hover: #8cc8f5;
+    --gqlmd-badge-fg: #8cc8f5;
+    --gqlmd-muted: #a1a1aa;
+    --gqlmd-border: #3f3f46;
+    --gqlmd-chip-bg: #27272a;
+    --gqlmd-code-bg: #27272a;
+    --gqlmd-chip-border: #3f3f46;
+    --sidebar-bg: #18181b;
+    --code-bg: #27272a;
+    --border-color: #3f3f46;
+  }
+}
+
+/* ── Page title and section headings ──────────────────────────────────── */
+
+.markdown-section > h1:first-child {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0.25rem 0 1.25rem;
+  overflow-wrap: anywhere;
+}
+
+.markdown-section h2,
+.markdown-section h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.markdown-section h2 {
+  margin: 2rem 0 0.75rem;
+}
+
+.markdown-section h3 {
+  font-size: 1.4rem;
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--gqlmd-border);
+}
+
+/* ── Field / argument rows (h4 headings) ──────────────────────────────── */
+
+.markdown-section h4:has(.gqlmd-mdx-entity) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 1.1rem 0 0.3rem;
+}
+
+/* the field name already links to the row, so drop the extra anchor icon
+   (it would wrap onto its own line on narrow screens) */
+.markdown-section h4:has(.gqlmd-mdx-entity) > .anchorjs-link {
+  display: none;
+}
+
+.markdown-section h4:has(.gqlmd-mdx-entity) + p {
+  margin-top: 0.25rem;
+  color: var(--gqlmd-muted);
+}
+
+/* entity chip: `Parent.field`, `Type!` */
+.markdown-section .gqlmd-mdx-entity {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--gqlmd-chip-border);
+  border-radius: 0.375rem;
+  background: var(--gqlmd-chip-bg);
+  font-family: var(--gqlmd-mono);
+  font-size: 0.875rem;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.markdown-section .gqlmd-mdx-entity code {
+  padding: 0;
+  background: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+.markdown-section .gqlmd-mdx-entity .gqlmd-mdx-entity-parent {
+  color: var(--gqlmd-muted);
+}
+
+.markdown-section .gqlmd-mdx-entity .gqlmd-mdx-entity-name {
+  font-weight: 600;
+}
+
+.markdown-section a:has(> .gqlmd-mdx-entity) {
+  text-decoration: none;
+}
+
+.markdown-section a:not(.gqlmd-permalink, [href="#"]) > .gqlmd-mdx-entity .gqlmd-mdx-entity-name {
+  color: var(--gqlmd-link);
+}
+
+.markdown-section a:has(> .gqlmd-mdx-entity):hover .gqlmd-mdx-entity {
+  border-color: var(--gqlmd-link);
+}
+
+/* separator between name and type, and between inline lists */
+.markdown-section .gqlmd-mdx-bullet {
+  display: inline-block;
+  font-size: 0.4rem;
+  line-height: 1;
+  color: var(--gqlmd-muted);
+  margin: 0 0.15rem;
+  vertical-align: middle;
+}
+
+/* ── Badges ── */
+.markdown-section .gqlmd-badge {
+  display: inline-block;
+  padding: 0.2em 0.65em;
+  border: 1px solid color-mix(in srgb, var(--theme-color) 40%, transparent);
+  border-radius: 50rem;
+  background: color-mix(in srgb, var(--theme-color) 14%, transparent);
+  color: var(--gqlmd-badge-fg);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* ── Inline lists ("Returned By", "Member Of", …) ─────────────────────── */
+
+.markdown-section p:has(> .gqlmd-mdx-bullet, > .gqlmd-badge) {
+  line-height: 2.1;
+}
+
+.markdown-section p > .gqlmd-mdx-bullet {
+  margin: 0 0.45rem;
+}
+
+.markdown-section p > a > code,
+.markdown-section li > a > code {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--gqlmd-chip-border);
+  border-radius: 0.375rem;
+  background: var(--gqlmd-chip-bg);
+  color: var(--gqlmd-link);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.markdown-section p > a:has(> code),
+.markdown-section li > a:has(> code) {
+  text-decoration: none;
+}
+
+.markdown-section p > a:has(> code):hover > code,
+.markdown-section li > a:has(> code):hover > code {
+  border-color: var(--gqlmd-link);
+}
+
+.markdown-section p > a:has(> code) + .gqlmd-badge {
+  margin-left: 0.15rem;
+}
+
+/* ── Links ────────────────────────────────────────────────────────────── */
+
+.markdown-section a {
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* ── Code ─────────────────────────────────────────────────────────────── */
+
+.markdown-section :not(pre) > code {
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.3rem;
+  background: var(--gqlmd-code-bg);
+  color: var(--strong-color);
+  font-size: 0.875em;
+}
+
+.markdown-section pre {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--gqlmd-border);
+  border-radius: var(--gqlmd-radius);
+  background: var(--gqlmd-code-bg);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.markdown-section pre > code.hljs,
+.markdown-section pre > code {
+  padding: 1rem 1.25rem;
+  background: transparent;
+}
+
+/* ── Callouts (Docsify v5) ── */
+
+.markdown-section .callout {
+  margin: 1rem 0 1.5rem;
+  border-radius: var(--gqlmd-radius);
+}
+
+.markdown-section .callout > p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Small screens ── */
+
+/* ── Small screens ────────────────────────────────────────────────────── */
+
+@media (max-width: 767px) {
+  .markdown-section > h1:first-child {
+    font-size: 1.75rem;
+  }
+
+  .markdown-section h3 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .markdown-section pre {
+    font-size: 0.8rem;
+  }
+}
+
+/* ── Landing page ── */
+
+
+.markdown-section .gqlmd-landing {
+  --gqlmd-shadow: #e4e4e7;
+}
+
+@media (prefers-color-scheme: dark) {
+  .markdown-section .gqlmd-landing {
+    --gqlmd-shadow: #09090b;
+  }
+}
+
+.markdown-section .gqlmd-hero > * {
+  min-width: 0;
+}
+
+.markdown-section .gqlmd-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 3rem 0 4rem;
+}
+
+.markdown-section .gqlmd-eyebrow {
+  margin: 0 0 1.5rem;
+  font-family: var(--gqlmd-mono);
+  font-size: 0.875rem;
+  color: var(--gqlmd-link);
+}
+
+.markdown-section .gqlmd-landing h1.gqlmd-hero-title {
+  max-width: 36rem;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+.markdown-section .gqlmd-hero-text {
+  max-width: 32rem;
+  margin: 1.75rem 0 0;
+  font-size: 1.125rem;
+  line-height: 2rem;
+}
+
+.markdown-section .gqlmd-hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.markdown-section a.gqlmd-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--gqlmd-border);
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.markdown-section a.gqlmd-btn-primary {
+  background: var(--theme-color);
+  border-color: var(--theme-color);
+  color: #fff;
+}
+
+.markdown-section a.gqlmd-btn-primary:hover {
+  background: var(--gqlmd-link-hover);
+  border-color: var(--gqlmd-link-hover);
+  color: #fff;
+}
+
+.markdown-section a.gqlmd-btn-outline {
+  color: var(--color-text);
+}
+
+.markdown-section a.gqlmd-btn-outline:hover {
+  background: var(--gqlmd-chip-bg);
+  color: var(--color-text);
+}
+
+.markdown-section .gqlmd-hero-intro {
+  margin: 1.5rem 0 0;
+  color: var(--gqlmd-muted);
+}
+
+.markdown-section .gqlmd-preview {
+  overflow: hidden;
+  background: #1f1f1f;
+  border: 1px solid var(--gqlmd-border);
+  border-radius: 0.5rem;
+  box-shadow: 20px 20px 0 var(--gqlmd-shadow);
+}
+
+.markdown-section .gqlmd-preview-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgb(63 63 70 / 0.8);
+}
+
+.markdown-section .gqlmd-preview-file {
+  font-family: var(--gqlmd-mono);
+  font-size: 0.875rem;
+  color: #a1a1aa;
+}
+
+.markdown-section .gqlmd-preview-chip {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background: rgb(11 133 215 / 0.12);
+  font-family: var(--gqlmd-mono);
+  font-size: 0.75rem;
+  color: #5ab0f0;
+}
+
+.markdown-section .gqlmd-preview pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  background: transparent;
+  border: 0;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  color: #e4e4e7;
+}
+
+.markdown-section .gqlmd-preview code {
+  /* the generic `article pre > code` padding would only indent the first
+     line of this inline element */
+  display: block;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  white-space: pre;
+}
+
+.markdown-section .gqlmd-preview .token-keyword { color: #d8b4fe; }
+.markdown-section .gqlmd-preview .token-type { color: #93c5fd; }
+.markdown-section .gqlmd-preview .token-field { color: #f0abfc; }
+
+.markdown-section .gqlmd-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 3rem 0;
+  border-top: 1px solid var(--gqlmd-border);
+  border-bottom: 1px solid var(--gqlmd-border);
+}
+
+.markdown-section .gqlmd-highlights p {
+  margin: 0;
+}
+
+.markdown-section .gqlmd-highlights .gqlmd-eyebrow-sm {
+  font-family: var(--gqlmd-mono);
+  font-size: 0.75rem;
+  color: var(--gqlmd-link);
+}
+
+.markdown-section .gqlmd-highlights div > p:last-child {
+  margin-top: 0.75rem;
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .markdown-section .gqlmd-hero {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 1.5rem 0 3rem;
+  }
+
+  .markdown-section .gqlmd-landing h1.gqlmd-hero-title {
+    font-size: 2.5rem;
+  }
+
+  .markdown-section .gqlmd-preview {
+    box-shadow: 10px 10px 0 var(--gqlmd-shadow);
+  }
+
+  .markdown-section .gqlmd-highlights {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ── Footer ── */
+
+.gqlmd-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--gqlmd-border);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--gqlmd-muted);
+}
+
+/* The landing highlights already end with a rule; avoid a double line. */
+.gqlmd-landing + .gqlmd-footer,
+.gqlmd-landing ~ .gqlmd-footer {
+  border-top: 0;
+}
