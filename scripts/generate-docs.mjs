@@ -1,12 +1,7 @@
 import { rmSync } from "node:fs";
 import { resolve } from "node:path";
-import { pathToFileURL } from "node:url";
 
 import { runGraphQLMarkdown } from "@graphql-markdown/cli";
-
-const customMDX = pathToFileURL(
-  resolve("./scripts/custom-docsify-mdx.mjs"),
-).href;
 
 rmSync(resolve("./docs/graphql"), { force: true, recursive: true });
 
@@ -17,7 +12,9 @@ await runGraphQLMarkdown(
       "https://raw.githubusercontent.com/graphql-markdown/graphql-markdown/main/tests/e2e/__data__/demo_schema.graphql",
     rootPath: "./docs",
     baseURL: "graphql",
-    formatter: customMDX,
+    // Docsify preset: Docsify links and callouts, plus the folder `README.md`
+    // indexes and `docs/_sidebar.md` written once the pages are rendered.
+    formatter: "@graphql-markdown/formatters/docsify",
     loaders: {
       UrlLoader: "@graphql-tools/url-loader",
     },
