@@ -1,0 +1,25 @@
+{
+  "name": "demo-docsify",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf docs/graphql docs/_sidebar.md",
+    "generate": "node ./scripts/generate-docs.mjs && node ./scripts/build-sidebar.mjs",
+    "dev": "npm run generate && docsify serve docs",
+    "build": "npm run generate",
+    "test:visual": "playwright test"
+  },
+  "dependencies": {
+    "@graphql-markdown/cli": "^1.2.2",
+    "@graphql-markdown/formatters": "^1.2.2",
+    "@graphql-markdown/utils": "^1.14.2",
+    "@graphql-tools/url-loader": "^10.0.9",
+    "graphql": "^17.1.0"
+  },
+  "devDependencies": {
+    "@argos-ci/playwright": "^7.10.0",
+    "@playwright/test": "^1.65.1",
+    "docsify-cli": "^5.0.0"
+  }
+}
