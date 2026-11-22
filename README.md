@@ -2,7 +2,7 @@
 
 This project demonstrates how to generate GraphQL documentation with GraphQL-Markdown for a [Docsify](https://docsify.js.org) v5 site.
 
-**Live demo:** [graphql-markdown.github.io/demo-docsify](https://graphql-markdown.github.io/demo-docsify/)
+**Live demo:** [graphql-markdown.dev/demo-docsify](https://graphql-markdown.dev/demo-docsify/)
 
 ## Quick start
 
