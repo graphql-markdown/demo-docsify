@@ -60,6 +60,13 @@ Playwright serves `docs/` on port 4173 (override with `VISUAL_PORT`). Docsify re
 - **Generated `_sidebar.md`.** Docsify reads its navigation from `docs/_sidebar.md`. The preset writes it once the pages are rendered, and also writes a `README.md` index for each category.
 - **`generated.md` cleanup.** The built-in homepage is emitted as `generated.md` with Docusaurus front matter. `generate-docs.mjs` deletes it because `docs/README.md` is the homepage here.
 
+## Deprecation links and Markdown source
+
+`lib/formatter.mjs` extends the Docsify preset with two additions, loaded by `scripts/generate-docs.mjs`:
+
+- **Linked deprecation reasons.** Type names in backticks inside a deprecation reason (for example "Replaced by the `ProjectStatus` enum") link to that type's page.
+- **View as Markdown.** Each page ends with a `View as Markdown` link to its source `.md` file on the deployed site (`https://graphql-markdown.dev/demo-docsify/graphql/…md`). Docsify already serves that file, so no second copy is generated. The link is absolute, so Docsify leaves it alone instead of routing it as a page.
+
 ## Notes
 
 - The documented schema is the [shared GraphQL-Markdown demo schema](https://github.com/graphql-markdown/graphql-markdown/blob/main/tests/e2e/__data__/demo_schema.graphql) used by all GraphQL-Markdown demos, loaded from its raw URL at generation time. Generation needs network access.

@@ -1,5 +1,6 @@
 import { rmSync } from "node:fs";
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 import { runGraphQLMarkdown } from "@graphql-markdown/cli";
 
@@ -12,9 +13,11 @@ await runGraphQLMarkdown(
       "https://raw.githubusercontent.com/graphql-markdown/graphql-markdown/main/tests/e2e/__data__/demo_schema.graphql",
     rootPath: "./docs",
     baseURL: "graphql",
-    // Docsify preset: Docsify links and callouts, plus the folder `README.md`
-    // indexes and `docs/_sidebar.md` written once the pages are rendered.
-    formatter: "@graphql-markdown/formatters/docsify",
+    // Docsify preset (links, callouts, folder `README.md` indexes and
+    // `docs/_sidebar.md`) plus linked deprecation reasons and a "View as
+    // Markdown" link. Absolute URL: relative formatter paths resolve against
+    // the package, not the project.
+    formatter: pathToFileURL(resolve("./lib/formatter.mjs")).href,
     loaders: {
       UrlLoader: "@graphql-tools/url-loader",
     },

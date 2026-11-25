@@ -60,6 +60,29 @@ for (const [kind, path, title] of pages) {
   });
 }
 
+// The source Markdown of a page is served next to it, unchanged.
+test("markdown source", async ({ request }) => {
+  const response = await request.get("/graphql/types/objects/project.md");
+  expect(response.status()).toBe(200);
+  const body = await response.text();
+  expect(body).toContain("Replaced by the");
+});
+
+// Backticked type names in deprecation reasons link to their page (hash route).
+test("deprecation reason links to a type page", async ({ page }) => {
+  await page.goto("/#/graphql/types/objects/project");
+  await waitForRender(page);
+  const admonition = page
+    .locator(".markdown-section .callout", { hasText: "Replaced by" })
+    .first();
+  await expect(admonition).toBeAttached();
+  const link = admonition.locator("a", { hasText: "ProjectStatus" });
+  await expect(link).toHaveAttribute(
+    "href",
+    /#\/graphql\/types\/enums\/project-status/,
+  );
+});
+
 test.describe("dark mode", () => {
   test.use({ colorScheme: "dark" });
 
