@@ -83,6 +83,21 @@ test("deprecation reason links to a type page", async ({ page }) => {
   );
 });
 
+// A type-level `@deprecatedType` renders the "Deprecated" notice, with the
+// replacement type linked from its reason.
+test("deprecated type notice links to the replacement", async ({ page }) => {
+  await page.goto("/#/graphql/types/objects/legacy-project");
+  await waitForRender(page);
+  const notice = page
+    .locator(".markdown-section .callout", { hasText: "Replaced by" })
+    .first();
+  await expect(notice).toContainText("Deprecated");
+  await expect(notice.locator("a", { hasText: /^Project$/ })).toHaveAttribute(
+    "href",
+    /\/graphql\/types\/objects\/project/,
+  );
+});
+
 test.describe("dark mode", () => {
   test.use({ colorScheme: "dark" });
 
