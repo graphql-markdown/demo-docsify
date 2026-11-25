@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GraphQL-Markdown Docsify demo</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify@5.1.0/dist/themes/core.min.css"
+      integrity="sha384-EHVG4GyaSD3YEuLBkKV9+uYAxVxDbhmNuPVXRdvHjrC0+eLbs8F7fFiR2aeuXY5S"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/docsify@5.1.0/dist/themes/addons/core-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+      integrity="sha384-0nrMf7u5/wUF0pWYWts1RzfUixk93lq2QuCgzLlH5YIAjqgIqoaZq4H4tuYp1k60"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./gqlmd.css" />
+  </head>
+  <body>
+    <div id="app">Loading...</div>
+    <script>
+      window.$docsify = {
+        name: "GraphQL-Markdown Docsify demo",
+        loadSidebar: true,
+        // One generated sidebar for every route (avoids per-folder _sidebar.md 404s).
+        alias: { "/.*/_sidebar.md": "/_sidebar.md" },
+        subMaxLevel: 2,
+        auto2top: true,
+        plugins: [
+          function (hook) {
+            // Entity names are self links (href="#"); point them at the heading id.
+            hook.doneEach(function () {
+              document
+                .querySelectorAll(
+                  ".markdown-section :is(h3, h4, h5)[id] > a[href='#']",
+                )
+                .forEach(function (link) {
+                  link.href = "#" + link.parentElement.id;
+                  link.classList.add("gqlmd-permalink");
+                });
+            });
+            hook.afterEach(function (html) {
+              return (
+                html +
+                '<div class="gqlmd-footer">Generated with <a href="https://graphql-markdown.dev">GraphQL-Markdown</a> · <a href="https://github.com/graphql-markdown/graphql-markdown">⭐ Star on GitHub</a></div>'
+              );
+            });
+          },
+        ],
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5.1.0/dist/docsify.min.js" integrity="sha384-hx+mDRaRp2tw2tlDV9AVMMkU5zRLpaEIGGYt3k1ZiWSxGxIzCyP3FceVHUAMb1bI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.30.0/components/prism-graphql.min.js" integrity="sha384-CfAKPApbQPXLiw2NZvvX89i+xd8VKHk+TfWhnWgmUXxl8Ct6qPN7u30+ATfxibjS" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docsify@5.1.0/dist/plugins/search.min.js" integrity="sha384-mkjQDRnwrfyRbChj7+qlTfCEvrsSsxs6VVslNDhuufsMKuF4STph3BezVwzTknga" crossorigin="anonymous"></script>
+  </body>
+</html>
