@@ -66,6 +66,7 @@ Playwright serves `docs/` on port 4173 (override with `VISUAL_PORT`). Docsify re
 
 - **Linked deprecation reasons.** Type names in backticks inside a deprecation reason (for example "Replaced by the `ProjectStatus` enum") link to that type's page.
 - **View as Markdown.** Each page ends with a `View as Markdown` link to its source `.md` file on the deployed site (`https://graphql-markdown.dev/demo-docsify/graphql/…md`). Docsify already serves that file, so no second copy is generated. The link is absolute, so Docsify leaves it alone instead of routing it as a page.
+- **Type-level deprecation.** A `@deprecatedType` directive on a type renders a "Deprecated" badge and callout, defined in `lib/decorators.mjs` and loaded by `scripts/generate-docs.mjs`.
 
 ## Notes
 

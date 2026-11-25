@@ -4,6 +4,8 @@ import { pathToFileURL } from "node:url";
 
 import { runGraphQLMarkdown } from "@graphql-markdown/cli";
 
+import { decorators } from "../lib/decorators.mjs";
+
 rmSync(resolve("./docs/graphql"), { force: true, recursive: true });
 
 await runGraphQLMarkdown(
@@ -21,6 +23,7 @@ await runGraphQLMarkdown(
     loaders: {
       UrlLoader: "@graphql-tools/url-loader",
     },
+    decorators,
     pretty: true,
     force: true,
     telemetry: false,
